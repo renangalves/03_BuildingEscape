@@ -11,7 +11,7 @@ UPositionReport::UPositionReport()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	
 }
 
 
@@ -20,7 +20,19 @@ void UPositionReport::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	float ObjectVectorX = GetOwner()->GetTransform().GetLocation().X;
+	float ObjectVectorY = GetOwner()->GetTransform().GetLocation().Y;
+	float ObjectVectorZ = GetOwner()->GetTransform().GetLocation().Z;
+
+	FString ObjectName = GetOwner()->GetName();
+	FString ObjectPos = "X=something, Y=something else, etc";
+	UE_LOG(LogTemp, Warning, TEXT("%s is at %f %f %f"), *ObjectName, ObjectVectorX, ObjectVectorY, ObjectVectorZ);
+	// output: LogTemp:Warning: SM_Chair_2 is at -320.000000 -120.000000 20.000000
+
+	ObjectName = GetOwner()->GetName();
+	ObjectPos = GetOwner()->GetTransform().GetLocation().ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectPos);
+	// output: LogTemp:Warning: SM_Chair_2 is at X=-320.000 Y=-120.000 Z=20.000
 	
 }
 
